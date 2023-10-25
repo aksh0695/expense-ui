@@ -22,29 +22,13 @@
     </tr>
   </thead>
   <tbody>
-    <tr>
-      <th scope="row">1</th>
-      <td>Utility</td>
-      <td>20</td>
-      <td>Expense</td>
-      <td>Splitwise</td>
-      <td>N/A</td>
-    </tr>
-    <tr>
-      <th scope="row">2</th>
-      <td>Rental Income</td>
-      <td>1000</td>
-      <td>Income</td>
-      <td>Expense App</td>
-      <td><i class="bi bi-pencil-fill"></i> &nbsp;<i class="bi bi-trash3-fill"></i></td>
-    </tr>
-    <tr>
-      <th scope="row">3</th>
-      <td>Food</td>
-      <td>10</td>
-      <td>Expense</td>
-      <td>Expense App</td>
-      <td><i class="bi bi-pencil-fill" (click)="openPopup()"></i> &nbsp;<i class="bi bi-trash3-fill"></i></td>
+    <tr *ngFor="let item of tableData; let i = index">
+      <th scope="row">{{i+1}}</th>
+      <td>{{item.detail}}</td>
+      <td>{{item.cost}}</td>
+      <td>{{item.expenseType}}</td>
+      <td>{{item.expenseSource}}</td>
+      <td><div *ngIf="item.expenseSource === 'Expense App'"><i class="bi bi-pencil-fill"></i> &nbsp;<i class="bi bi-trash3-fill"></i></div></td>
     </tr>
   </tbody>
 </table>
