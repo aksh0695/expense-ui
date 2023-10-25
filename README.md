@@ -1,27 +1,20 @@
-# ExpenseUi
+#Design Documentation
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 15.1.4.
 
-## Development server
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+Signup -> Login -> Home(Admin)
+		   Home(User)
 
-## Code scaffolding
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
 
-## Build
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+ Home  --> Income chart , Expenses chart -> for current month (default), dropdown (particular month)
+           Table showing the list of income/expenses, default -> expenses details of the current user (date, expense/income, detail, category, cost)
+     Button -> Add Income/Expense information --> Modal window where you can put in all the details. This details will remain the same as what is present in splitwise. IMplementation will be a form.
+ Detailed Info -->   Charts/dashboard showing total income and total expense graphs for entire year - consolidation of all months
+                      Monthly split of income and expense (Bar graph)
+                      Chart of all categories and detailed infprmation for every category , how much for each month
 
-## Running unit tests
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+ 
+ 
