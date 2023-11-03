@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { PostService } from 'src/app/services/post.service';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
+import { IResponse } from '../interface/IResponse';
 
 @Component({
   selector: 'app-expense-login',
@@ -19,11 +20,18 @@ export class ExpenseLoginComponent {
   onSubmit() {
     const username = 'test';
     const password = 'test';
-    if(this.myGroup.value.username === username && this.myGroup.value.password === password){
-      this.router.navigate(['./app-expense-home']);
-    }else{
-      this.router.navigate(['./app-expense-login']);
-    }
+    
+    this.service.authenticateUser<IResponse>(this.myGroup.value.username, this.myGroup.value.password).subscribe(res => {
+        console.log(res);
+        if(res.responseStatus == "SUCCESS"){
+          localStorage.setItem('user',JSON.stringify(res.responseBody.userId));
+          this.router.navigate(['./app-expense-home']);
+        }else{
+          alert(res.responseMessage);
+          this.router.navigate(['./app-expense-login']);
+        }
+    });
+
  }
 
   ngOnInit() {
@@ -32,14 +40,14 @@ export class ExpenseLoginComponent {
       'password': this.formBuilder.control('')
     });
 
-      this.service.getPosts()
+      // this.service.getPosts()
 
-        .subscribe(response => {
+      //   .subscribe(response => {
 
-          this.posts = response;
-          console.log(this.posts);
+      //     this.posts = response;
+      //     console.log(this.posts);
 
-        });
+      //   });
 
   }
 

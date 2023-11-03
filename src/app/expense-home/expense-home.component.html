@@ -4,10 +4,9 @@
   <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8 2.146 2.854Z"/>
 </svg>
 <div>
-  <canvasjs-chart [options]="chartOptions" [styles]="{width: '100%', height:'360px', absolute:true}"></canvasjs-chart>
-</div>
-<div>
-  <canvasjs-chart [options]="chartOptions2" [styles]="{width: '100%', height:'360px'}"></canvasjs-chart>
+  <canvasjs-chart [options]="expenseChartOptions" [styles]="{width: '100%', height:'360px', absolute:true}" (chartInstance)="getExpenseChartInstance($event)"></canvasjs-chart>
+
+  <canvasjs-chart [options]="incomeChartOptions" [styles]="{width: '100%', height:'360px'}" (chartInstance)="getIncomeChartInstance($event)"></canvasjs-chart>
 </div>
 
 <table class="table table-dark">
@@ -16,19 +15,19 @@
       <th scope="col">#</th>
       <th scope="col">Detail</th>
       <th scope="col">Cost</th>
-      <th scope="col">Expense Type</th>
-      <th scope="col">Expense Source</th>
+      <th scope="col">Transaction Type</th>
+      <th scope="col">Transaction Source</th>
       <th scope="col">Actions</th>
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let item of tableData; let i = index">
+    <tr *ngFor="let item of tableValues; let i = index">
       <th scope="row">{{i+1}}</th>
-      <td>{{item.detail}}</td>
-      <td>{{item.cost}}</td>
-      <td>{{item.expenseType}}</td>
-      <td>{{item.expenseSource}}</td>
-      <td><div *ngIf="item.expenseSource === 'Expense App'"><i class="bi bi-pencil-fill" (click)="openPopup()"></i> &nbsp;<i class="bi bi-trash3-fill"></i></div></td>
+      <td>{{item.transactionDetail}}</td>
+      <td>{{item.trasactionCost}}</td>
+      <td>{{item.transactionType}}</td>
+      <td>{{item.transactionCategory}}</td>
+      <td><div *ngIf="item.transactionSource === 'Expense App'"><i class="bi bi-pencil-fill" (click)="openPopup()"></i> &nbsp;<i class="bi bi-trash3-fill"></i></div></td>
     </tr>
   </tbody>
 </table>
