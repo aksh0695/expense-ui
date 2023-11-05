@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 
 import { HttpClient } from '@angular/common/http';
+import { ITransactionDetail } from '../interface/IResponse';
 
 
 
@@ -8,7 +9,7 @@ import { HttpClient } from '@angular/common/http';
 
 export class PostService {
 
-  private url = 'http://localhost:8080/v1/';
+  private url = 'http://localhost:8082/v1/';
 
   private userContext = 'user/';
   private expenseContext = 'expense/';
@@ -34,6 +35,17 @@ export class PostService {
   getUserDetails<IResponse>(userId : number){
     let finalUrl = this.url+this.expenseContext+'all/'+userId;
     return this.httpClient.get<IResponse>(finalUrl);
+  }
+
+  updateTransactionDetail<IResponse>(transactionDetail: ITransactionDetail){
+    let finalUrl= this.url+this.expenseContext+'update';
+    return this.httpClient.put<IResponse>(finalUrl,transactionDetail);
+
+  }
+
+  deleteTransactionDetail<IResponse>(transactionDetail: ITransactionDetail){
+    let finalUrl = this.url+this.expenseContext+"delete";
+    return this.httpClient.put<IResponse>(finalUrl,transactionDetail);
   }
 
 

@@ -13,6 +13,8 @@ export interface ITransactionDetail{
     transactionCategory: String;
     trasactionCost: number;
     transactionSource: String;
+    userId: number;
+
 }
 
 export interface IChartDisplayData{

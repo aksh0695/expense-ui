@@ -26,11 +26,13 @@
       <td>{{item.transactionDetail}}</td>
       <td>{{item.trasactionCost}}</td>
       <td>{{item.transactionType}}</td>
-      <td>{{item.transactionCategory}}</td>
-      <td><div *ngIf="item.transactionSource === 'Expense App'"><i class="bi bi-pencil-fill" (click)="openPopup()"></i> &nbsp;<i class="bi bi-trash3-fill"></i></div></td>
+      <td>{{item.transactionSource}}</td>
+      <td><div *ngIf="item.transactionSource === 'Expense App'"><i class="bi bi-pencil-fill" (click)="openPopup(item)"></i> &nbsp;<i class="bi bi-trash3-fill" (click)="deleteExpense(item)"></i></div></td>
     </tr>
   </tbody>
 </table>
+
+
 
 
 <!-- <h3>Please click on the below button open popup</h3>
@@ -65,6 +67,20 @@
   </div>
 </div> -->
 
+<div class="modal" id="alertModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true"
+[ngStyle]="{'display':displayAlertStyle}">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-body">
+        <span>{{modalText}}</span>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="closeAlertPopup()">Close</button>
+      </div>
+      </div>
+      </div>
+      </div>
+
 <div class="modal" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true"
 [ngStyle]="{'display':displayStyle}">
   <div class="modal-dialog" role="document">
@@ -76,24 +92,24 @@
         </button>
       </div>
       <div class="modal-body">
-        <form>
+        <form [formGroup]="myGroup">
           <div class="form-group">
             <label for="detail" class="col-form-label">Detail :</label>
-            <input type="text" class="form-control" id="detail">
+            <input formControlName="trasactionDetail" type="text" class="form-control" id="detail">
           </div>
           <div class="form-group">
             <label for="cost" class="col-form-label">Cost :</label>
-            <input type="text" class="form-control" id="cost">
+            <input formControlName="transactionCost" type="text" class="form-control" id="cost">
           </div>
           <div class="form-group">
             <label for="expense-type" class="col-form-label">Expense Type :</label>
-            <input type="text" class="form-control" id="expense-type">
+            <input formControlName="transactionType" type="text" class="form-control" id="expense-type">
           </div>
         </form>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="closePopup()">Close</button>
-        <button type="button" class="btn btn-primary">Save</button>
+        <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="saveExpenseChanges()">Save</button>
       </div>
     </div>
   </div>
