@@ -21,3 +21,10 @@ export interface IChartDisplayData{
     y: number;
     name: String;
 }
+
+export interface IUser{
+    name: String;
+    email:String;
+    password:String;
+    splitwise_key:String;
+}

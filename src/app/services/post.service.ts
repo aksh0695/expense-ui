@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 
 import { HttpClient } from '@angular/common/http';
-import { ITransactionDetail } from '../interface/IResponse';
+import { ITransactionDetail, IUser } from '../interface/IResponse';
 
 
 
@@ -30,6 +30,11 @@ export class PostService {
      let finalUrl = this.url + this.userContext+ "authenticate";
      let User = {"email" : userName, "password":password};
      return this.httpClient.post<IResponse>(finalUrl,User);
+  }
+
+  createUser<IResponse>(userDetail : IUser){
+    let finalUrl = this.url+this.userContext+"create";
+    return this.httpClient.post<IResponse>(finalUrl,userDetail);
   }
 
   getUserDetails<IResponse>(userId : number){
