@@ -75,7 +75,8 @@ export class ExpenseSignupComponent {
       }
 
       this.service.createUser(userDetails).subscribe(x => {
-        console.log("user created : "  + x);
+        console.log("user created : "  + JSON.stringify(x));
+        this.router.navigate(['./app-expense-login']);
       });
     }
 

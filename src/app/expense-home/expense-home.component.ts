@@ -1,7 +1,7 @@
 import { Component, OnChanges, SimpleChanges } from '@angular/core';
 import { PostService } from 'src/app/services/post.service';
 import { Router } from '@angular/router';
-import { IResponse, ITransactionDetail,IChartDisplayData } from '../interface/IResponse';
+import { IResponse, ITransactionDetail,IChartDisplayData, IExpense } from '../interface/IResponse';
 import { FormBuilder, FormGroup, FormControl } from '@angular/forms';
 import { ConstantPool } from '@angular/compiler';
 
@@ -31,6 +31,7 @@ export class ExpenseHomeComponent implements OnChanges {
   incomeChart: any = {};
   myGroup: FormGroup;
   modalText:String = "";
+  createTransactionGroup: FormGroup;
 
 
   changeRoute(route: string) {
@@ -51,6 +52,15 @@ export class ExpenseHomeComponent implements OnChanges {
       'transactionCost': this.formBuilder.control(''),
       'transactionType': this.formBuilder.control('')
     });
+
+    this.createTransactionGroup = new FormGroup({
+      'transactionType': this.formBuilder.control(''),
+      'trasactionDetail':this.formBuilder.control(''),
+      'transactionCost': this.formBuilder.control(''),
+      'transactionDate': this.formBuilder.control('')
+    });
+
+    
     
     this.tableValues = [];
    this.expenseChartData = [];
@@ -180,6 +190,8 @@ export class ExpenseHomeComponent implements OnChanges {
     }
     displayStyle = "none";
     displayAlertStyle = "none";
+    displayCreateModalStyle = "none";
+    displayCreateAlertStye = "none";
 
     currentItem: ITransactionDetail;
     openPopup(item:ITransactionDetail) {
@@ -201,7 +213,7 @@ export class ExpenseHomeComponent implements OnChanges {
       this.service.updateTransactionDetail<IResponse>(this.currentItem).subscribe(x =>{
           console.log("response after update: " + JSON.stringify(x));
           let a:ITransactionDetail={
-            transactionId: BigInt("-1"),
+            transactionId: -1,
             transactionDate: new Date(),
             transactionType: '',
             transactionDetail: '',
@@ -244,6 +256,43 @@ export class ExpenseHomeComponent implements OnChanges {
       this.ngOnInitLoad();
       this.reLoad();
        
+    }
+
+    create(){
+      console.log("create buttin clicked");
+      this.displayCreateModalStyle = "block";
+    }
+    createItem: ITransactionDetail;
+    createTransaction(){
+      console.log("save button create modal clicked");
+      let a:ITransactionDetail={
+        transactionId: -1,
+        transactionDate: new Date(),
+        transactionType: '',
+        transactionDetail: '',
+        transactionCategory: '',
+        trasactionCost: -1,
+        transactionSource : "Expense App",
+        userId: this.userId
+      };
+      this.createItem = a;
+      this.createItem.transactionDate = this.createTransactionGroup.value.transactionDate;
+      this.createItem.transactionType = this.createTransactionGroup.value.transactionType;
+      this.createItem.transactionDetail = this.createTransactionGroup.value.trasactionDetail;
+      this.createItem.trasactionCost = this.createTransactionGroup.value.transactionCost;
+    
+      console.log("saving new transaction object : " + JSON.stringify(this.createItem,  (_, v) => typeof v === 'bigint' ? v.toString() : v));
+      
+      this.service.createTransactionDetail<IResponse>(this.createItem).subscribe(x =>{
+          this.displayCreateModalStyle = "none";
+          this.modalText = x.responseMessage;
+          this.displayAlertStyle = "block";
+          //console.log("reponse after saving : " + JSON.stringify(x,(_, v) => typeof v === 'bigint' ? v.toString() : v));
+      });
+    }
+
+    closeCreatePopup(){
+      this.displayCreateModalStyle = "none";
     }
 
     expenseChartOptions = this.chartOptions1;

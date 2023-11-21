@@ -8,6 +8,9 @@
 
   <canvasjs-chart [options]="incomeChartOptions" [styles]="{width: '100%', height:'360px'}" (chartInstance)="getIncomeChartInstance($event)"></canvasjs-chart>
 </div>
+<div>
+  <button (click)="create()" style="margin-left: 87%;margin-top: 50px;">Create Transaction</button>
+</div>
 
 <table class="table table-dark">
   <thead>
@@ -110,6 +113,48 @@
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="closePopup()">Close</button>
         <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="saveExpenseChanges()">Save</button>
+      </div>
+    </div>
+  </div>
+</div>
+   <!-- Create Transaction modal window -->
+<div class="modal" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true"
+[ngStyle]="{'display':displayCreateModalStyle}">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Create Expense</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="closeCreatePopup()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="createTransactionGroup">
+          <div class="form-group">
+            <label for="expense-type" class="col-form-label">Transaction Type :</label>
+            <select id="cars" name="cars" formControlName="transactionType" class="form-control" id="expense-type">
+              <option value="EXPENSE">Expense</option>
+              <option value="INCOME">Income</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="detail" class="col-form-label">Detail :</label>
+            <input formControlName="trasactionDetail" type="text" class="form-control" id="detail">
+          </div>
+          <div class="form-group">
+            <label for="cost" class="col-form-label">Cost :</label>
+            <input formControlName="transactionCost" type="text" class="form-control" id="cost">
+          </div>
+          <div class="form-group">
+            <label for="transactionDate" class="col-form-label">Date :</label>
+            <input formControlName="transactionDate" type="date" class="form-control" id="date">
+          </div>
+          
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="closeCreatePopup()">Close</button>
+        <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="createTransaction()">Save</button>
       </div>
     </div>
   </div>

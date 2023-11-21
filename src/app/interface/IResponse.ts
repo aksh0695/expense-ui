@@ -6,7 +6,7 @@ export interface IResponse{
 }
 
 export interface ITransactionDetail{
-    transactionId: BigInt;
+    transactionId: number;
     transactionDate: Date;
     transactionType: String;
     transactionDetail: String;
@@ -15,6 +15,15 @@ export interface ITransactionDetail{
     transactionSource: String;
     userId: number;
 
+}
+
+export interface IExpense{
+    transactionDate: Date;
+    transactionType: String;
+    transactionDetail: String;
+    transactionCategory: String;
+    trasactionCost: number;
+    userId: number;
 }
 
 export interface IChartDisplayData{
