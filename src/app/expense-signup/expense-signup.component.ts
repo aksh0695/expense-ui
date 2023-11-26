@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, FormControl } from '@angular/forms';
+import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 import { PostService } from '../services/post.service';
 import { Router } from '@angular/router';
 import { IUser } from '../interface/IResponse';
@@ -19,17 +19,29 @@ export class ExpenseSignupComponent {
   email:FormControl;
   password:FormControl;
   splitwiseKey:FormControl;
-  
+  getErrorMessageS: String = "Please enter a valid email"; 
 
 
 
   ngOnInit(){
 
     this.fullName= new FormControl('');
-    this.email= new FormControl('');
+    this.email= new FormControl('', [Validators.required, Validators.email]);
     this.password= new FormControl('');
     this.splitwiseKey= new FormControl('');
+
+    
   }
+
+  getErrorMessage() {
+    if (this.email.hasError('required')) {
+      this.getErrorMessageS = 'You must enter a value';
+    }
+
+    return this.email.hasError('email') ? this.getErrorMessageS='Not a valid email' : '';
+  }
+
+
 
   onSubmit(){
     console.log(this.fullName.value);

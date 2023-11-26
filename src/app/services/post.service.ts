@@ -42,6 +42,16 @@ export class PostService {
     return this.httpClient.get<IResponse>(finalUrl);
   }
 
+  getAllTransactionDetails<IResponse>(userId : number){
+    let finalUrl = this.url+this.expenseContext+'all/'+userId;
+    return this.httpClient.get<IResponse>(finalUrl);
+  }
+
+  getTransactionDetailsByMonth<IResponse>(userId : number, monthId : String){
+    let finalUrl = this.url+this.expenseContext+'month/'+userId + '/'+monthId;
+    return this.httpClient.get<IResponse>(finalUrl);
+  }
+
   createTransactionDetail<IResponse>(transactionDetail:ITransactionDetail){
     let finalUrl = this.url+this.expenseContext+"create";
     return this.httpClient.post<IResponse>(finalUrl,transactionDetail);

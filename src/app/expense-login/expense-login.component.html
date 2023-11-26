@@ -28,6 +28,9 @@
       <label for="inputPassword" class="sr-only">Password</label>
       <input formControlName="password" type="password" id="inputPassword" class="form-control" placeholder="Password" required >
       </div>
+      <div class="text-center">
+        <p style="color: red;">{{loginError}}</p>
+      </div>
       <div class="checkbox mb-3">
         <label>
           <input type="checkbox" value="remember-me"> Remember me

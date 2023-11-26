@@ -295,6 +295,14 @@ export class ExpenseHomeComponent implements OnChanges {
       this.displayCreateModalStyle = "none";
     }
 
+    goHome(){
+      this.router.navigate(['./app-expense-home']);
+    }
+
+    goDetails(){
+    this.router.navigate(['./app-expense-detail']);
+  }
+
     expenseChartOptions = this.chartOptions1;
     incomeChartOptions :any = this.chartOptions2;
   

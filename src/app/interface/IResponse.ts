@@ -37,3 +37,9 @@ export interface IUser{
     password:String;
     splitwise_key:String;
 }
+
+export interface Food {
+    value: string;
+    viewValue: string;
+  }
+  

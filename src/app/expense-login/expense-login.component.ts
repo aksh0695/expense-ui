@@ -3,6 +3,7 @@ import { PostService } from 'src/app/services/post.service';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
 import { IResponse } from '../interface/IResponse';
+import {MatToolbarModule} from '@angular/material/toolbar';
 
 @Component({
   selector: 'app-expense-login',
@@ -13,6 +14,7 @@ export class ExpenseLoginComponent {
 
   posts:any;
   myGroup: FormGroup;
+  loginError:String;
 
 
   constructor(private service:PostService,private formBuilder: FormBuilder,private router: Router) {}
@@ -22,7 +24,7 @@ export class ExpenseLoginComponent {
     const password = 'test';
     
     this.service.authenticateUser<IResponse>(this.myGroup.value.username, this.myGroup.value.password).subscribe(res => {
-        console.log(res);
+       // console.log(res);
         if(res.responseStatus == "SUCCESS"){
           localStorage.setItem('user',JSON.stringify(res.responseBody.userId));
           this.router.navigate(['./app-expense-home']);
@@ -30,7 +32,12 @@ export class ExpenseLoginComponent {
           alert(res.responseMessage);
           this.router.navigate(['./app-expense-login']);
         }
-    });
+    },
+    (error =>{
+      console.log("error is : " + JSON.stringify(error.error.responseMessage));
+      this.loginError = error.error.responseMessage;
+    })
+    )
 
  }
 
